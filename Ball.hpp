@@ -2,20 +2,19 @@
 
 #include <SFML/Graphics.hpp>;
 
-
-class Ball {
+class Ball : public sf::RectangleShape {
 public:
 
 	Ball();
 	Ball(float speed);
 
 	void reset(bool direction);
-	void move();
+	void update();
 	void collides(sf::RectangleShape shape);
 	void flipYAxis();
-	sf::RectangleShape shape;
+protected:
+	sf::Vector2f defaultPosition;
 private:
-	
 	sf::Vector2f movement;
 	float speed;
 
