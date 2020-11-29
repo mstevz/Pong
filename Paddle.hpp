@@ -4,12 +4,9 @@
 
 enum class Direction { Up, Down };
 
-class Paddle {
+class Paddle : public sf::RectangleShape {
 public:
-	sf::RectangleShape shape;
-
 	Paddle();
-	sf::Vector2f getPosition();
 	void move(Direction direction);
 protected:
 	float speed;
