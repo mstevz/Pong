@@ -36,8 +36,8 @@ void Ball::update() {
 		this->setPosition(getPosition().x, 0.f);
 		flipYAxis();
 	}
-	else if (getPosition().y >= GameWindow::GET_HEIGHT()) {
-		this->setPosition(getPosition().x, GameWindow::GET_HEIGHT() - 1.f);
+	else if (getPosition().y + this->getSize().y >= GameWindow::GET_HEIGHT()) {
+		this->setPosition(getPosition().x, GameWindow::GET_HEIGHT() - this->getSize().y);
 		flipYAxis();
 	}
 	// ---------------------------------------------
