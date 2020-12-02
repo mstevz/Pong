@@ -8,6 +8,7 @@
 #include "Ball.hpp"
 #include "PlayerPaddle.hpp";
 #include "NpcPaddle.hpp"
+#include "Score.hpp"
 
 Pong::Pong() {
    
@@ -32,9 +33,19 @@ void Pong::run() {
 
     GameWindow* windowPtr; 
     sf::Text fps;
+    sf::Text playerScoreGui;
+    sf::Text npcScoreGui;
     Ball ball;
+    
+    Score playerScore;
+    Score npcScore;
+
     PlayerPaddle pl;
     NpcPaddle npc(&ball.getPosition());
+
+
+    
+
 
     windowPtr = window; // Exposing window property to lambda
 
@@ -44,6 +55,22 @@ void Pong::run() {
     fps.setPosition(10.f, 30.f);
     fps.setCharacterSize(12);
     fps.setFillColor(sf::Color::White);
+
+    playerScoreGui.setFont(arial);
+    playerScoreGui.setPosition(window->getScreenCenter().x - 80.f , 30.f);
+    playerScoreGui.setCharacterSize(18);
+    playerScoreGui.setFillColor(sf::Color::White);
+    playerScoreGui.setString("0");
+
+    npcScoreGui.setFont(arial);
+    npcScoreGui.setPosition(window->getScreenCenter().x + 80.f, 30.f);
+    npcScoreGui.setCharacterSize(18);
+    npcScoreGui.setFillColor(sf::Color::White);
+    npcScoreGui.setString("0");
+
+    playerScore.setTextGui(playerScoreGui);
+    npcScore.setTextGui(npcScoreGui);
+
     
     pl.setPosition(20.f, 100.f);
     npc.setPosition((float)(window->GET_WIDTH() - 20), 100.f);
@@ -53,15 +80,19 @@ void Pong::run() {
         fps.setString("Fps: " + std::to_string(windowPtr->getFramesPerSecond()));
     }); 
 
+
     // Draw ball & Settings
-    this->window->setToDraw(&ball, [&ball, &pl, &npc]() { 
+    this->window->setToDraw(&ball, [&ball, &pl, &npc, &npcScore, &playerScore]() { 
 
         if (ball.getPosition().x >= GameWindow::GET_WIDTH()) {
             // set player score
+            playerScore.add(1);
             ball.reset(1);
+            
         }
         else if (ball.getPosition().x <= 0) {
             // set npc score
+            npcScore.add(1);
             ball.reset(0);
         }
 
@@ -70,6 +101,9 @@ void Pong::run() {
         ball.update(); 
 
     }); 
+
+    this->window->setToDraw(&npcScore.getScoreGui());
+    this->window->setToDraw(&playerScore.getScoreGui());
     
     
     this->window->setToDraw(&pl,   [&pl]()   { pl.update();  }); // Draw Player Paddle

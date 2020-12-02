@@ -159,6 +159,7 @@
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PlayerPaddle.cpp" />
     <ClCompile Include="Pong.cpp" />
+    <ClCompile Include="Score.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.hpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="PlayerManager.hpp" />
     <ClInclude Include="PlayerPaddle.hpp" />
     <ClInclude Include="Pong.hpp" />
+    <ClInclude Include="Score.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
